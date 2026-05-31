@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WonderTravel - Website Pariwisata Indonesia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1976d2;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav a:hover {
+            color: #1976d2;
+        }
+
+        .btn {
+            padding: 0.5rem 1.5rem;
+            background: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #1565c0;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #1976d2;
+            border: 2px solid #1976d2;
+        }
+
+        .btn-secondary:hover {
+            background: #f5f5f5;
+        }
+
+        /* Hero */
+        .hero {
+            height: 600px;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+                        url('https://images.unsplash.com/photo-1558117338-aa433feb1c62?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .search-container {
+            background: white;
+            border-radius: 50px;
+            padding: 0.5rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .search-box {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-box button {
+            padding: 1rem 2rem;
+            background: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .categories {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .category-chip {
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .category-chip:hover,
+        .category-chip.active {
+            background: white;
+            color: #1976d2;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Card */
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .rating {
+            background: #fff9c4;
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-weight: 600;
+            color: #f57c00;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .location {
+            color: #666;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.95rem;
+        }
+
+        .description {
+            color: #555;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+            line-height: 1.6;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .price-container {
+            flex: 1;
+        }
+
+        .price-label {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.2rem;
+        }
+
+        .price {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #1976d2;
+        }
+
+        /* Features */
+        .features {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 5rem 2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 0.8rem;
+            color: #1a1a1a;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Packages Section */
+        .packages-section {
+            background: #f9f9f9;
+        }
+
+        .package-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .package-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .package-header {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .package-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .package-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #4caf50;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .package-content {
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .package-title {
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+        }
+
+        .package-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .package-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .package-destinations {
+            margin: 1rem 0;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .package-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-section h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-section p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-large {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+        }
+
+        .btn-whatsapp:hover {
+            background: #20ba5a;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p {
+            color: #aaa;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .footer ul {
+            list-style: none;
+        }
+
+        .footer ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer ul li a:hover {
+            color: white;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-icons a {
+            width: 45px;
+            height: 45px;
+            background: #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            background: #1976d2;
+            transform: translateY(-3px);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border-radius: 4px;
+            border: none;
+            outline: none;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            color: #aaa;
+        }
+
+        /* Modal Base */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            padding: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        /* Detail Modal Specifics */
+        .modal img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-section {
+            margin-bottom: 2rem;
+        }
+
+        .detail-section h3 {
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+
+        .detail-list {
+            list-style: none;
+        }
+
+        .detail-list li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: start;
+            gap: 0.5rem;
+        }
+
+        .detail-list li:before {
+            content: "✓";
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        /* Login Form Styles */
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #1976d2;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .search-box {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .search-box button {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .contact-section h2 {
+                font-size: 2rem;
+            }
+
+            .contact-buttons {
+                flex-direction: column;
+            }
+
+            .btn-large {
+                width: 100%;
+            }
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>
+                </svg>
+                <span>WonderTravel</span>
+            </a>
+            <nav class="nav">
+                <a href="#beranda">Beranda</a>
+                <a href="#destinasi">Destinasi</a>
+                <a href="#paket">Paket Wisata</a>
+                <a href="#kontak">Hubungi Kami</a>
+                <button onclick="openLoginModal()" class="btn">Login</button>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="beranda">
+        <div class="hero-content">
+            <h1>Jelajahi Keindahan Indonesia</h1>
+            <p>Temukan destinasi impian Anda dan ciptakan kenangan tak terlupakan</p>
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Cari destinasi, kota, atau aktivitas...">
+                    <button onclick="searchDestinations()">
+                        <span>🔍</span>
+                        <span>Cari</span>
+                    </button>
+                </div>
+            </div>
+            <div class="categories">
+                <span class="category-chip active" onclick="filterCategory('Semua')">Semua</span>
+                <span class="category-chip" onclick="filterCategory('Pantai')">Pantai</span>
+                <span class="category-chip" onclick="filterCategory('Gunung')">Gunung</span>
+                <span class="category-chip" onclick="filterCategory('Budaya')">Budaya</span>
+                <span class="category-chip" onclick="filterCategory('Alam')">Alam</span>
+                <span class="category-chip" onclick="filterCategory('Petualangan')">Petualangan</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" id="destinasi">
+        <div class="section-title">
+            <h2>Destinasi Populer</h2>
+            <p>Jelajahi lebih dari 24 destinasi menarik di seluruh Indonesia</p>
+        </div>
+        <div class="grid" id="destinationsGrid">
+            </div>
+    </section>
+
+    <section class="container packages-section" id="paket">
+        <div class="section-title">
+            <h2>Paket Wisata Terbaik</h2>
+            <p>Pilih paket wisata dengan harga terjangkau dan layanan prima</p>
+        </div>
+        <div class="grid" id="packagesGrid">
+            </div>
+    </section>
+
+    <section class="features">
+        <div class="section-title">
+            <h2>Mengapa Memilih Kami?</h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>Aman & Terpercaya</h3>
+                <p>Transaksi aman dengan jaminan perlindungan konsumen</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎧</div>
+                <h3>Layanan 24/7</h3>
+                <p>Tim support siap membantu Anda kapan saja</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💳</div>
+                <h3>Harga Terbaik</h3>
+                <p>Dapatkan penawaran terbaik untuk setiap destinasi</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌍</div>
+                <h3>Destinasi Lengkap</h3>
+                <p>Ribuan destinasi menarik di seluruh Indonesia</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="kontak">
+        <div class="contact-content">
+            <h2>Siap Memulai Petualangan?</h2>
+            <p>Hubungi kami sekarang dan dapatkan penawaran terbaik untuk liburan impian Anda!</p>
+            <div class="contact-buttons">
+                <a href="https://wa.me/6285604984060?text=Halo%20WonderTravel,%20saya%20tertarik%20untuk%20bertanya%20tentang%20paket%20wisata." target="_blank" class="btn btn-large btn-whatsapp">
+                    📱 Chat WhatsApp
+                </a>
+                <a href="tel:+6285604984060" class="btn btn-large">
+                    📞 Telepon Sekarang
+                </a>
+                <a href="mailto:info@wondertravel.id" class="btn btn-large btn-secondary">
+                    ✉️ Kirim Email
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="logo" style="margin-bottom: 1rem;">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>
+                    </svg>
+                    <span>WonderTravel</span>
+                </div>
+                <p>Partner terpercaya untuk perjalanan wisata Anda di seluruh Indonesia</p>
+                <div class="social-icons">
+                    <a href="#" title="Facebook">f</a>
+                    <a href="#" title="Instagram">📷</a>
+                    <a href="#" title="Twitter">🐦</a>
+                    <a href="#" title="Email">✉️</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Perusahaan</h3>
+                <ul>
+                    <li><a href="#">Tentang Kami</a></li>
+                    <li><a href="#">Karir</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Bantuan</h3>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Hubungi Kami</a></li>
+                    <li><a href="#">Syarat & Ketentuan</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Dapatkan penawaran terbaik langsung di email Anda</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Email Anda">
+                    <button class="btn">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 WonderTravel. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+                <h2 id="modalTitle"></h2>
+            </div>
+            <div class="modal-body" id="modalBody">
+                </div>
+        </div>
+    </div>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <button class="modal-close" onclick="closeLoginModal()">&times;</button>
+                <h2>Login ke Akun Anda</h2>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required placeholder="Masukkan email anda">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" required placeholder="Masukkan password anda">
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%; padding: 0.8rem; margin-top: 1rem;">Masuk</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Destinasi
+        const destinations = [
+            {
+                id: 1,
+                image: 'https://images.unsplash.com/photo-1558117338-aa433feb1c62?w=400',
+                title: 'Pantai Sanur',
+                location: 'Bali, Indonesia',
+                rating: 4.9,
+                price: 'Rp 2.500.000',
+                description: 'Nikmati keindahan pantai dengan pasir putih dan air laut yang jernih',
+                category: 'Pantai',
+                duration: '3 Hari 2 Malam',
+                facilities: ['Hotel Bintang 4', 'Transportasi AC', 'Guide Profesional', 'Asuransi Perjalanan'],
+                included: ['Tiket Masuk', 'Makan 3x Sehari', 'Peralatan Snorkeling', 'Dokumentasi Foto']
+            },
+            {
+                id: 2,
+                image: 'https://images.unsplash.com/photo-1516203722367-8b43ba2ec073?w=400',
+                title: 'Resort Gili Trawangan',
+                location: 'Lombok, Indonesia',
+                rating: 4.8,
+                price: 'Rp 3.200.000',
+                description: 'Pengalaman menginap di resort eksklusif dengan pemandangan laut',
+                category: 'Pantai',
+                duration: '4 Hari 3 Malam',
+                facilities: ['Resort Mewah', 'Fast Boat', 'Instruktur Diving', 'Sepeda Keliling Pulau'],
+                included: ['Sertifikat Diving', 'Makan All Inclusive', 'Sunset Cruise', 'Spa Treatment']
+            },
+            {
+                id: 3,
+                image: 'https://images.unsplash.com/photo-1610393144331-77cdca5996c9?w=400',
+                title: 'Gunung Bromo',
+                location: 'Jawa Timur, Indonesia',
+                rating: 4.7,
+                price: 'Rp 1.800.000',
+                description: 'Saksikan keindahan sunrise dari puncak gunung yang menakjubkan',
+                category: 'Gunung',
+                duration: '2 Hari 1 Malam',
+                facilities: ['Hotel/Homestay', 'Jeep 4WD', 'Jacket Tebal', 'Guide Berpengalaman'],
+                included: ['Sunrise Tour', 'Kuda ke Kawah', 'Makan 2x', 'Kamera Dokumentasi']
+            },
+            {
+                id: 4,
+                image: 'https://images.unsplash.com/photo-1726088437796-e0e62b860b88?w=400',
+                title: 'Taman Bunga Nusantara',
+                location: 'Bandung, Jawa Barat',
+                rating: 4.6,
+                price: 'Rp 1.200.000',
+                description: 'Jelajahi keindahan taman bunga dengan latar pegunungan yang indah',
+                category: 'Alam',
+                duration: '1 Hari',
+                facilities: ['Transportasi', 'Guide Lokal', 'Area Piknik'],
+                included: ['Tiket Masuk', 'Makan Siang', 'Foto Unlimited', 'Souvenir']
+            },
+            {
+                id: 5,
+                image: 'https://images.unsplash.com/photo-1777594422832-b0cc4f2c2ea6?w=400',
+                title: 'Candi Borobudur',
+                location: 'Yogyakarta, Indonesia',
+                rating: 4.9,
+                price: 'Rp 1.500.000',
+                description: 'Telusuri warisan budaya dan sejarah di candi Buddha terbesar',
+                category: 'Budaya',
+                duration: '2 Hari 1 Malam',
+                facilities: ['Hotel Yogyakarta', 'AC Bus', 'Guide Berlisensi', 'Audio Guide'],
+                included: ['Tiket Borobudur', 'Sunrise Borobudur', 'Makan 3x', 'Museum Visit']
+            },
+            {
+                id: 6,
+                image: 'https://images.unsplash.com/photo-1777594422714-68dc9ff53c2f?w=400',
+                title: 'Kota Tua Jakarta',
+                location: 'Jakarta, Indonesia',
+                rating: 4.5,
+                price: 'Rp 900.000',
+                description: 'Kunjungi bangunan bersejarah dengan arsitektur kolonial yang memukau',
+                category: 'Budaya',
+                duration: '1 Hari',
+                facilities: ['Transportasi Jakarta', 'Museum Pass', 'Local Guide'],
+                included: ['5 Museum', 'Kuliner Khas', 'Bike Tour', 'Batik Workshop']
+            },
+            {
+                id: 7,
+                image: 'https://images.unsplash.com/photo-1703769605332-79bcf45d1c5c?w=400',
+                title: 'Raja Ampat',
+                location: 'Papua Barat, Indonesia',
+                rating: 5.0,
+                price: 'Rp 8.500.000',
+                description: 'Surga bawah laut dengan keanekaragaman hayati terbaik di dunia',
+                category: 'Petualangan',
+                duration: '5 Hari 4 Malam',
+                facilities: ['Resort Homestay', 'Speedboat', 'Diving Equipment', 'Underwater Camera'],
+                included: ['Multiple Dive Sites', 'Island Hopping', 'All Meals', 'Dive Master']
+            },
+            {
+                id: 8,
+                image: 'https://images.unsplash.com/photo-1567086150024-b6db5e6ec867?w=400',
+                title: 'Pulau Komodo',
+                location: 'Nusa Tenggara Timur',
+                rating: 4.9,
+                price: 'Rp 5.500.000',
+                description: 'Bertemu langsung dengan komodo, kadal raksasa purba yang legendaris',
+                category: 'Petualangan',
+                duration: '3 Hari 2 Malam',
+                facilities: ['Ranger Guide', 'Boat', 'Safety Briefing'],
+                included: ['Park Fee', 'Trekking', 'Snorkeling', 'All Meals', 'Accommodation']
+            }
+        ];
+
+        // Data Paket Wisata
+        const packages = [
+            {
+                id: 1,
+                name: 'Bali Adventure 5D4N',
+                image: 'https://images.unsplash.com/photo-1558117338-aa433feb1c62?w=400',
+                price: 'Rp 4.500.000',
+                duration: '5 Hari 4 Malam',
+                description: 'Jelajahi Bali dari pantai hingga pegunungan dengan paket lengkap',
+                rating: 4.8,
+                minPeople: 2,
+                maxPeople: 15,
+                category: 'Petualangan'
+            },
+            {
+                id: 2,
+                name: 'Java Heritage 4D3N',
+                image: 'https://images.unsplash.com/photo-1777594422832-b0cc4f2c2ea6?w=400',
+                price: 'Rp 3.800.000',
+                duration: '4 Hari 3 Malam',
+                description: 'Tour budaya ke candi-candi megah Jawa Tengah',
+                rating: 4.9,
+                minPeople: 4,
+                maxPeople: 20,
+                category: 'Budaya'
+            },
+            {
+                id: 3,
+                name: 'Komodo Liveaboard 4D3N',
+                image: 'https://images.unsplash.com/photo-1567086150024-b6db5e6ec867?w=400',
+                price: 'Rp 6.500.000',
+                duration: '4 Hari 3 Malam',
+                description: 'Petualangan laut dan bertemu komodo di habitat aslinya',
+                rating: 5.0,
+                minPeople: 6,
+                maxPeople: 12,
+                category: 'Petualangan'
+            }
+        ];
+
+        let currentFilter = 'Semua';
+
+        // Render Destinasi
+        function renderDestinations(filter = 'Semua') {
+            const grid = document.getElementById('destinationsGrid');
+            const filtered = filter === 'Semua' 
+                ? destinations 
+                : destinations.filter(d => d.category === filter);
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:#666;">Destinasi tidak ditemukan.</p>';
+                return;
+            }
+
+            grid.innerHTML = filtered.map(dest => `
+                <div class="card" onclick="showDetail(${dest.id})">
+                    <img src="${dest.image}" alt="${dest.title}">
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">${dest.title}</h3>
+                            <span class="rating">⭐ ${dest.rating}</span>
+                        </div>
+                        <div class="location">📍 ${dest.location}</div>
+                        <p class="description">${dest.description}</p>
+                        <div class="card-footer">
+                            <div class="price-container">
+                                <div class="price-label">Mulai dari</div>
+                                <div class="price">${dest.price}</div>
+                            </div>
+                            <span class="btn" style="font-size: 0.9rem; padding: 0.5rem 1rem;">Detail</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render Paket Wisata
+        function renderPackages() {
+            const grid = document.getElementById('packagesGrid');
+            grid.innerHTML = packages.map(pkg => `
+                <div class="package-card">
+                    <div class="package-header">
+                        <img src="${pkg.image}" alt="${pkg.name}">
+                        <span class="package-badge">${pkg.category}</span>
+                    </div>
+                    <div class="package-content">
+                        <h3 class="package-title">${pkg.name}</h3>
+                        <p class="description">${pkg.description}</p>
+                        <div class="package-meta">
+                            <span>⏱️ ${pkg.duration}</span>
+                            <span>👥 Min. ${pkg.minPeople} - ${pkg.maxPeople} Pax</span>
+                        </div>
+                        <div class="package-footer">
+                            <div class="price-container">
+                                <div class="price-label">Harga Paket</div>
+                                <div class="price">${pkg.price}</div>
+                            </div>
+                            <a href="https://wa.me/6285604984060?text=Halo%20WonderTravel,%20saya%20tertarik%20dengan%20Paket%20${encodeURIComponent(pkg.name)}" target="_blank" class="btn">Pesan Paket</a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter Kategori
+        function filterCategory(category) {
+            currentFilter = category;
+            const chips = document.querySelectorAll('.category-chip');
+            chips.forEach(chip => {
+                if (chip.textContent === category) {
+                    chip.classList.add('active');
+                } else {
+                    chip.classList.remove('active');
+                }
+            });
+            renderDestinations(category);
+        }
+
+        // Fungsi Pencarian
+        function searchDestinations() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const grid = document.getElementById('destinationsGrid');
+            
+            const filtered = destinations.filter(dest => 
+                dest.title.toLowerCase().includes(query) || 
+                dest.location.toLowerCase().includes(query) ||
+                dest.description.toLowerCase().includes(query)
+            );
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:#666;">Destinasi tidak ditemukan.</p>';
+                return;
+            }
+
+            grid.innerHTML = filtered.map(dest => `
+                <div class="card" onclick="showDetail(${dest.id})">
+                    <img src="${dest.image}" alt="${dest.title}">
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">${dest.title}</h3>
+                            <span class="rating">⭐ ${dest.rating}</span>
+                        </div>
+                        <div class="location">📍 ${dest.location}</div>
+                        <p class="description">${dest.description}</p>
+                        <div class="card-footer">
+                            <div class="price-container">
+                                <div class="price-label">Mulai dari</div>
+                                <div class="price">${dest.price}</div>
+                            </div>
+                            <span class="btn" style="font-size: 0.9rem; padding: 0.5rem 1rem;">Detail</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Jalankan pencarian jika menekan tombol 'Enter' pada kolom input
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchDestinations();
+            }
+        });
+
+        // Tampilkan Detail Destinasi
+        function showDetail(id) {
+            const dest = destinations.find(d => d.id === id);
+            if (!dest) return;
+
+            document.getElementById('modalTitle').textContent = dest.title;
+            
+            const facilitiesList = dest.facilities.map(f => `<li>${f}</li>`).join('');
+            const includedList = dest.included.map(i => `<li>${i}</li>`).join('');
+
+            const bodyContent = `
+                <img src="${dest.image}" alt="${dest.title}">
+                <p style="margin-bottom: 1rem;"><strong>Lokasi:</strong> 📍 ${dest.location} | ⭐ ${dest.rating}</p>
+                <p style="margin-bottom: 1.5rem;">${dest.description}</p>
+                
+                <div class="detail-section">
+                    <h3>Fasilitas Tur (${dest.duration}):</h3>
+                    <ul class="detail-list">
+                        ${facilitiesList}
+                    </ul>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Sudah Termasuk:</h3>
+                    <ul class="detail-list">
+                        ${includedList}
+                    </ul>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:2rem; padding-top:1rem; border-top:1px solid #eee;">
+                    <div>
+                        <div style="font-size:0.9rem; color:#666;">Estimasi Biaya</div>
+                        <div style="font-size:1.6rem; font-weight:bold; color:#1976d2;">${dest.price}</div>
+                    </div>
+                    <a href="https://wa.me/6285604984060?text=Halo,%20saya%20ingin%20tanya%20detail%20wisata%20ke%20${encodeURIComponent(dest.title)}" target="_blank" class="btn">Tanya via WhatsApp</a>
+                </div>
+            `;
+
+            document.getElementById('modalBody').innerHTML = bodyContent;
+            document.getElementById('detailModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('detailModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Fungsi Kendali Login Modal
+        function openLoginModal() {
+            document.getElementById('loginModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            alert(`Selamat datang kembali! Anda berhasil login menggunakan email: ${email}`);
+            closeLoginModal();
+            document.getElementById('loginForm').reset();
+        }
+
+        // Global Event Listener untuk menutup modal saat mengklik background gelap
+        window.onclick = function(event) {
+            const detailModal = document.getElementById('detailModal');
+            const loginModal = document.getElementById('loginModal');
+            if (event.target === detailModal) {
+                closeModal();
+            }
+            if (event.target === loginModal) {
+                closeLoginModal();
+            }
+        }
+
+        // Memuat konten setelah DOM siap
+        document.addEventListener('DOMContentLoaded', () => {
+            renderDestinations();
+            renderPackages();
+        });
+    </script>
+</body>
+</html>
