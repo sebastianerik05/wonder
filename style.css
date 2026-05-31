@@ -1,0 +1,49 @@
+/* Contoh styling sederhana */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    color: #333;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 5%;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #00af87; /* Warna khas TravelGo */
+}
+
+.hero {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('hero-bg.jpg');
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.search-bar input {
+    padding: 15px;
+    width: 300px;
+    border-radius: 25px 0 0 25px;
+    border: none;
+}
+
+.search-bar button {
+    padding: 15px 30px;
+    border-radius: 0 25px 25px 0;
+    border: none;
+    background: #00af87;
+    color: white;
+    cursor: pointer;
+}
